@@ -40,9 +40,6 @@ o.undofile = true
 o.swapfile = true
 o.backup   = false
 
--- Disable the built-in statusline
-o.laststatus = 0
-
 opt.wrap = false -- Disable wrapping of lines
 
 opt.hidden = true -- Keep buffers in background
@@ -66,13 +63,13 @@ opt.listchars = {
 -- Set fillchars
 opt.fillchars = {
 	diff      = '╱',
-	eob       = '~',
+	eob       = ' ', -- ~
 	fold      = ' ',
 	foldclose = '',
 	foldopen  = '',
 	foldsep   = ' ',
 	msgsep    = '─',
-	horiz     = '-',
+	horiz     = '─', -- -
 	vert      = '│'
 }
 
@@ -91,10 +88,5 @@ if g.neovide then
 	g.neovide_padding_left   = 20
 end
 
--- Configure Neovim's built-in diagnostic system to show virtual lines
-vim.diagnostic.config {
-	virtual_text     = false, -- Disable virtual text (optional)
-	virtual_lines    = true,  -- Enable virtual lines for diagnostics
-	signs            = true,  -- Show diagnostic signs (e.g., icons)
-	update_in_insert = true,  -- Show diagnostics even while typing
-}
+-- use Neovim nightly branch
+-- vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'

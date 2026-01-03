@@ -57,3 +57,18 @@ hl(0, 'OilGitIgnored',   { fg = colors.color15, bg = colors.none })
 hl(0, 'FlashLabel',   { fg = colors.color4,  bg = colors.none })
 hl(0, 'FlashCurrent', { fg = colors.color11, bg = colors.none })
 hl(0, 'FlashMatch',   { fg = colors.color3,  bg = colors.none })
+
+hl(0, "DiffAdd",    { fg = colors.none, bg = colors.bg1 })
+hl(0, "DiffChange", { fg = colors.none, bg = colors.bg2 })
+hl(0, "DiffDelete", { fg = colors.none, bg = colors.gray2 })
+hl(0, "DiffText",   { fg = colors.none, bg = colors.color3 })
+
+--[[
+FlashBackdrop  
+FlashCurrent
+FlashCursor
+FlashLabel
+FlashMatch
+FlashPrompt
+FlashPromptIcon
+]]

@@ -1,16 +1,19 @@
---                           === AUTOCMDS ===
-
--- [[ Basic Autocommands ]]
+-- ========================================
+-- === AUTOCMDS / AUTO COMMANDS ===========
+-- ========================================
 --  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 
 local autocmd = vim.api.nvim_create_autocmd
 
+-- -----------------------------
+-- [[ Basic Autocommands ]]
+-- -----------------------------
+
+-- Highlight text when yanking (copying)
+-- Try it with `yap` in normal mode
+-- See `:help vim.highlight.on_yank()`
 autocmd('TextYankPost', {
-	desc = 'Highlight when yanking (copying) text',
+	desc = 'Highlight when yanking text',
 	callback = function()
 		vim.highlight.on_yank()
 	end,
@@ -28,68 +31,76 @@ autocmd('BufReadPost', {
 	end,
 })
 
--- Filetype-specific indentation
+-- -----------------------------
+-- [[ Filetype-specific settings ]]
+-- -----------------------------
+
+-- HTML / CSS indentation
 autocmd('FileType', {
 	pattern = { 'html', 'css' },
+	desc = 'Set indentation for HTML/CSS',
 	callback = function()
-		vim.opt_local.shiftwidth  = 2    -- indentation width for >> / <<
-		vim.opt_local.tabstop     = 2    -- width of a literal tab character
-		vim.opt_local.softtabstop = 2    -- how many spaces a Tab counts while editing
-		vim.opt_local.expandtab   = true -- convert tabs to spaces
+		vim.opt_local.shiftwidth  = 2
+		vim.opt_local.tabstop     = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.expandtab   = true
 	end,
 })
 
+-- Lisp listchars
 autocmd('FileType', {
 	pattern = { 'lisp' },
+	desc = 'Enable list mode for Lisp',
 	callback = function()
-		-- Set listchars
-		vim.opt_local.list = true -- Disable list mode
+		vim.opt_local.list = true
 	end,
 })
 
-
--- TODO: Create an auto cmd that expands tabs in all buffer types except in c
+-- C / Beancount: disable expandtab (use real tabs)
 autocmd('FileType', {
 	pattern = { 'c', 'beancount' },
+	desc = 'Disable expandtab for C/Beancount',
 	callback = function()
-		-- Set listchars
-		vim.opt_local.expandtab = false -- Disable list mode
+		vim.opt_local.expandtab = false
 	end,
 })
 
--- FIX: Isn't working! haha
-autocmd({'BufNewFile', 'FileType', 'BufLeave'}, {
-	desc = 'Add 42 header to every new c file!, when created ONLY, and update it when leaving.',
+-- C / C++: 42 header management (FIX / TODO)
+autocmd({ 'BufNewFile', 'FileType', 'BufLeave' }, {
+	desc = 'Add or update 42 header on C/C++ files',
 	pattern = { 'c', 'cpp' },
 	callback = function()
-        if vim.opt_local.modified then
-            vim.cmd[[Stdheader]]
-        end
+		if vim.opt_local.modified then
+			vim.cmd[[Stdheader]]
+		end
 	end,
 })
 
--- TODO: Create an auto cmd that calls Stdheader whenever a .c file that contains the header changes!
+-- -----------------------------
+-- [[ Copilot Blink Events ]]
+-- -----------------------------
 
--- autocmd('BufNewFile', {
--- 	desc = 'Add 42 header to every new c file!, when created ONLY',
--- 	pattern = { 'c' },
--- 	callback = function()
--- 		vim.cmd[[Stdheader]]
--- 	end,
--- })
-
-
--- Copilot -- blink
-vim.api.nvim_create_autocmd("User", {
-    pattern = "BlinkCmpMenuOpen",
-    callback = function()
-        vim.b.copilot_suggestion_hidden = true
-    end,
+autocmd("User", {
+	pattern = "BlinkCmpMenuOpen",
+	callback = function()
+		vim.b.copilot_suggestion_hidden = true
+	end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-    pattern = "BlinkCmpMenuClose",
-    callback = function()
-        vim.b.copilot_suggestion_hidden = false
-    end,
+autocmd("User", {
+	pattern = "BlinkCmpMenuClose",
+	callback = function()
+		vim.b.copilot_suggestion_hidden = false
+	end,
 })
+
+-- -----------------------------
+-- [[ Run TodoTrouble on first buffer ]]
+-- -----------------------------
+
+--[[ autocmd({ "BufReadPost", "BufNewFile" }, {
+	desc = "Run TodoTrouble whenever a file or buffer is opened",
+	callback = function()
+		vim.cmd("TodoTrouble")
+	end,
+}) ]]
