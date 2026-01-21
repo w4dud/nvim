@@ -1,5 +1,4 @@
-return {}
---[[ return {
+return {
     -- 1. The Linter Plugin
     {
         "mfussenegger/nvim-lint",
@@ -9,11 +8,11 @@ return {}
 
             -- 2. Configure linters per filetype
             lint.linters_by_ft = {
-                javascript = { "eslint_d" },
-                typescript = { "eslint_d" },
-                javascriptreact = { "eslint_d" },
-                typescriptreact = { "eslint_d" },
-                python = { "pylint" },
+                -- javascript = { "eslint_d" },
+                -- typescript = { "eslint_d" },
+                -- javascriptreact = { "eslint_d" },
+                -- typescriptreact = { "eslint_d" },
+                python = { "flake8" },
                 sh = { "shellcheck" },
                 -- Use the "*" filetype to run linters on all filetypes.
                 -- ['*'] = { 'global linter' },
@@ -41,4 +40,4 @@ return {}
             require("mason").setup()
         end,
     }
-} ]]
+}

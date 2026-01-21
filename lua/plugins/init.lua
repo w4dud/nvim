@@ -14,5 +14,6 @@ return {
 	{ import = 'plugins.utils' }, -- Extra useful utilities
 	{ import = 'plugins.org' },   -- Organization.
 	{ import = 'plugins.zen' },   -- zen philosophy.
-	{ import = 'plugins.ai' }     -- AI Tools.
+	{ import = 'plugins.ai' },    -- AI Tools.
+	{ import = 'plugins.game' }   -- Games
 }

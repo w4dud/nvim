@@ -5,6 +5,12 @@ return {
 	opts = {
         keywords = {
             TEST = {icon = "󰙨"}, -- icons: 󰙨 󰤑
+            QUESTION = {
+                icon = " ",
+                color = "hint",
+                alt = { "Q", "QUESTION", "WHY", "HOW" },
+            },
         }
+
     },
 }
